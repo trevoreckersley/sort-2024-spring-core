@@ -1,0 +1,21 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="stainedGlassworks" class="com.example.spring.core.factory.Glassworks">
+    <property name="stained" value="true"/>
+    <qualifier type="com.example.spring.core.annotations.Viablity"/>
+  </bean>
+
+  <bean id="stainedGlassSuperCatalogAndProcessing" class="com.example.spring.core.workflow.DefaultPipeline">
+    <constructor-arg name="factory" ref="stainedGlassworks"/>
+    <!--suppress SpringXmlModelInspection; comes from other configuration -->
+    <constructor-arg name="carrier" ref="post"/>
+    <constructor-arg name="counter">
+      <bean class="com.example.spring.core.stats.Counter"/>
+    </constructor-arg>
+    <qualifier type="com.example.spring.core.annotations.Viablity"/>
+  </bean>
+
+</beans>
